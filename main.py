@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QTextBrowser, QLineEdit, QVBoxLayout, QWidget
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QIcon
 import sys
 import time
 
@@ -8,19 +8,19 @@ class Window(QWidget) :
     def __init__ (self):
         super().__init__()
 
-        self.title="PyQt5 Simple Application"
+        self.title="Wokatoka Notepad"
         self.top = 400
         self.left = 400
         self.width = 600
         self.height = 600
-
+        self.setWindowIcon(QIcon('image/icon.png'))
         self.setWindowTitle(self.title)
         self.setGeometry(self.top, self.left, self.width, self.height)
-        # 아이콘: self.setWidnowIcon(QIcon('icon.png'))
-
+    
         self.Ui()
     
     def Ui (self):
+        
         self.browser = QTextBrowser()
         self.lineEdit = QLineEdit()
 
