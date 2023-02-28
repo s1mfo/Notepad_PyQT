@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import QApplication, QTextBrowser, QLineEdit, QVBoxLayout, QWidget
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 import sys
 import time
+import os
 
 class Window(QWidget) :
     
@@ -11,11 +12,13 @@ class Window(QWidget) :
         self.title="Wokatoka Notepad"
         self.top = 400
         self.left = 400
-        self.width = 600
+        self.width = 300
         self.height = 600
-        self.setWindowIcon(QIcon('image/icon.png'))
+
+        self.setFixedSize(self.width,self.height)
         self.setWindowTitle(self.title)
         self.setGeometry(self.top, self.left, self.width, self.height)
+        self.setWindowIcon(QIcon('/image/woka.png'))
     
         self.Ui()
     
@@ -35,15 +38,22 @@ class Window(QWidget) :
     def updateBrowser(self):
         now = time
         now_time = now.strftime('%H:%M:%S')
+        now_date = now.localtime().tm_mday
+        now_month = now.localtime().tm_mon
+        now_year = now.localtime().tm_year
         insert_line = "-------------------------------------------------------------------------------------------"
+
 
         try:
             text = str(self.lineEdit.text ())
             self.browser.append("%s = <b>%s</b>" %(text, eval(text)))
             self.lineEdit.clear()
         except:
-            if text=="--":
+            if text == "--":
                 self.browser.append(insert_line)
+                self.lineEdit.clear()
+            if text == "*start":
+                self.browser.append("<p style='font-size:16px'> <b>%s/%s/%s</b> </p>" %(now_date,now_month,now_year))
                 self.lineEdit.clear()
             else:
                 self.browser.append("<b>[%s]</b> %s" %(now_time, text))
